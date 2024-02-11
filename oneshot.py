@@ -856,6 +856,7 @@ class WiFiScanner:
                         (
                             row[1],   # BSSID
                             row[2],    # ESSID
+                            row[3],    #pin
                             row[4]     #pass
                             
                         )
@@ -1019,10 +1020,16 @@ class WiFiScanner:
             if (network['BSSID'], network['ESSID']) in self.stored:
                 print(colored(line, color='yellow'))
                 
+        #---new modificaton system
+
                 net_index = self.stored.index((network['BSSID'], network['ESSID']))
+                print("\nPIN: \t"+self.stored_pass[net_index][2])
+                print("Password: "+self.stored_pass[net_index][3]+"\n")
                 
-                print("\nPassword: "+self.stored_pass[net_index][2]+"\n")
-                
+
+
+
+
             elif network['WPS locked']:
                 print(colored(line, color='red'))
             elif self.vuln_list and (model in self.vuln_list):
