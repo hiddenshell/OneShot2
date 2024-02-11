@@ -19,7 +19,7 @@ from typing import Dict
 
 
 
-print("\n\tOneShot 2.0 Modified by dr@g0nhunt3r\n")
+print("\n\tOneShot 2.1 Modified by dr@g0nhunt3r\n")
 class NetworkAddress:
     def __init__(self, mac):
         if isinstance(mac, int):
