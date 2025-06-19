@@ -17,6 +17,8 @@ import csv
 from pathlib import Path
 from typing import Dict
 
+from colorama import Fore
+
 
 
 print("\n\tOneShot 2.2 Modified by dr@g0nhunt3r\n")
@@ -1284,9 +1286,11 @@ if __name__ == '__main__':
                         for item in cracked_data:
                             if args.bssid in item:
                                 wpa_psk = item[3]
-
-                                input(f'[*] Already Cracked WPA_PSK ({wpa_psk}) Found. Do you want to connect with it? [y/n]')
-                        
+                                check = input(f'[*] Already Cracked WPA_PSK ({Fore.GREEN+wpa_psk+Fore.RESET}) Found. Do you want to connect with it? [y/n]')
+                                if check.lower().strip() == 'y':
+                                    companion.__make_connection(args.bssid, wpa_psk)
+                                else:
+                                    break
 
                     if args.bruteforce:
                         companion.smart_bruteforce(args.bssid, args.pin, args.delay)
