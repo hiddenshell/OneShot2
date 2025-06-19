@@ -1281,11 +1281,9 @@ if __name__ == '__main__':
                 if args.bssid:
                     companion = Companion(args.interface, args.write, print_debug=args.verbose)
                     if cracked_data:
-                        print(cracked_data)
-                        
-                        if any(args.bssid in item for item in cracked_data):
-
-                            input('[*] Already Cracked Password Found. Do you want to connect with it? [y/n]')
+                        for item in cracked_data:
+                            if args.bssid in item:
+                                input('[*] Already Cracked Password Found. Do you want to connect with it? [y/n]')
                         
 
                     if args.bruteforce:
