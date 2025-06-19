@@ -19,7 +19,7 @@ from typing import Dict
 
 
 
-print("\n\tOneShot 2.1 Modified by dr@g0nhunt3r\n")
+print("\n\tOneShot 2.2 Modified by dr@g0nhunt3r\n")
 class NetworkAddress:
     def __init__(self, mac):
         if isinstance(mac, int):
@@ -681,6 +681,45 @@ class Companion:
         self.sendOnly('WPS_CANCEL')
         return False
 
+    def __make_connection(self,bssid, wpa_psk):
+        "This function handle automatic wifi connection."
+        time.sleep(2)
+        import subprocess
+        import time
+        import sys
+
+        # 🛠 Configuration
+        SSID = bssid
+        PASSWORD = wpa_psk  # your Wi‑Fi password
+        SECURITY = "wpa2"       # options: open, wpa2, wpa3 (use as needed)
+
+        def run_cmd(cmd):
+            """Run a shell command and return (exit_code, stdout, stderr)."""
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+            return result.returncode, result.stdout.strip(), result.stderr.strip()
+
+        print("🔧 Turning on Wi‑Fi...")
+        code, out, err = run_cmd(f"su -c 'svc wifi enable'")
+        if code != 0:
+            print("⚠️ Failed to enable Wi‑Fi:", err or out)
+            sys.exit(1)
+
+        time.sleep(2)  # wait for radio to power up
+
+        print(f"🌐 Connecting to SSID '{SSID}' with security '{SECURITY}'...")
+        cmd = f"su -c 'cmd wifi connect-network \"{SSID}\" {SECURITY} {PASSWORD}'"
+        code, out, err = run_cmd(cmd)
+        if code == 0:
+            print("✅ Wi‑Fi connection initiated.")
+        else:
+            print("❌ Failed to initiate connection.")
+            print("stdout:", out)
+            print("stderr:", err)
+            sys.exit(1)
+
+        print("\n📶 To verify internet access, ping something like 8.8.8.8:")
+
+
     def single_connection(self, bssid=None, pin=None, pixiemode=False, pbc_mode=False, showpixiecmd=False,
                           pixieforce=False, store_pin_on_fail=False):
         if not pin:
@@ -717,6 +756,7 @@ class Companion:
             self.__credentialPrint(pin, self.connection_status.wpa_psk, self.connection_status.essid)
             if self.save_result:
                 self.__saveResult(bssid, self.connection_status.essid, pin, self.connection_status.wpa_psk)
+            self.__make_connection(bssid, self.connection_status.wpa_psk)
             if not pbc_mode:
                 # Try to remove temporary PIN file
                 filename = self.pixiewps_dir + '{}.run'.format(bssid.replace(':', '').upper())
