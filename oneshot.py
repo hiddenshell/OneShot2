@@ -689,7 +689,6 @@ class Companion:
         import time
         import sys
         time.sleep(2)
-        print([bssid,wpa_psk])
         # 🛠 Configuration
         SSID = bssid
         PASSWORD = wpa_psk  # your Wi‑Fi password
@@ -758,7 +757,7 @@ class Companion:
             self.__credentialPrint(pin, self.connection_status.wpa_psk, self.connection_status.essid)
             if self.save_result:
                 self.__saveResult(bssid, self.connection_status.essid, pin, self.connection_status.wpa_psk)
-            self.make_connection(bssid, self.connection_status.wpa_psk)
+            self.make_connection(self.connection_status.essid, self.connection_status.wpa_psk)
             if not pbc_mode:
                 # Try to remove temporary PIN file
                 filename = self.pixiewps_dir + '{}.run'.format(bssid.replace(':', '').upper())
