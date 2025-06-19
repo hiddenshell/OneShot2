@@ -1283,7 +1283,8 @@ if __name__ == '__main__':
                     if cracked_data:
                         print(cracked_data)
                         
-                        if args.bssid in cracked_data:
+                        if any(args.bssid in item for item in cracked_data):
+
                             input('[*] Already Cracked Password Found. Do you want to connect with it? [y/n]')
                         
 
