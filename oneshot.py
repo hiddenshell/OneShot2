@@ -1289,6 +1289,7 @@ if __name__ == '__main__':
                                 check = input(f'[*] Already Cracked WPA_PSK ({Fore.GREEN+wpa_psk+Fore.RESET}) Found. Do you want to connect with it? [y/n]')
                                 if check.lower().strip() == 'y':
                                     companion.__make_connection(args.bssid, wpa_psk)
+                                    exit()
                                 else:
                                     break
 
