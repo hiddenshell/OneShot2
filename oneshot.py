@@ -683,7 +683,7 @@ class Companion:
         self.sendOnly('WPS_CANCEL')
         return False
 
-    def __make_connection(self,bssid, wpa_psk):
+    def make_connection(self,bssid, wpa_psk):
         "This function handle automatic wifi connection."
         time.sleep(2)
         import subprocess
@@ -758,7 +758,7 @@ class Companion:
             self.__credentialPrint(pin, self.connection_status.wpa_psk, self.connection_status.essid)
             if self.save_result:
                 self.__saveResult(bssid, self.connection_status.essid, pin, self.connection_status.wpa_psk)
-            self.__make_connection(bssid, self.connection_status.wpa_psk)
+            self.make_connection(bssid, self.connection_status.wpa_psk)
             if not pbc_mode:
                 # Try to remove temporary PIN file
                 filename = self.pixiewps_dir + '{}.run'.format(bssid.replace(':', '').upper())
@@ -1288,7 +1288,7 @@ if __name__ == '__main__':
                                 wpa_psk = item[3]
                                 check = input(f'[*] Already Cracked WPA_PSK ({Fore.GREEN+wpa_psk+Fore.RESET}) Found. Do you want to connect with it? [y/n]')
                                 if check.lower().strip() == 'y':
-                                    companion.__make_connection(args.bssid, wpa_psk)
+                                    companion.make_connection(args.bssid, wpa_psk)
                                     exit()
                                 else:
                                     break
