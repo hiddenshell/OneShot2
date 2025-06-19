@@ -1285,10 +1285,11 @@ if __name__ == '__main__':
                     if cracked_data:
                         for item in cracked_data:
                             if args.bssid in item:
+                                name = item[1]
                                 wpa_psk = item[3]
-                                check = input(f'[*] Already Cracked WPA_PSK ({Fore.GREEN+wpa_psk+Fore.RESET}) Found. Do you want to connect with it? [y/n]')
+                                check = input(f'[*] Already Cracked WPA_PSK ({Fore.GREEN+wpa_psk+Fore.RESET}) Found.\n[?] Do you want to connect with it? [y/n] ')
                                 if check.lower().strip() == 'y':
-                                    companion.make_connection(args.bssid, wpa_psk)
+                                    companion.make_connection(name, wpa_psk)
                                     exit()
                                 else:
                                     break
