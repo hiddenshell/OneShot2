@@ -1276,9 +1276,14 @@ if __name__ == '__main__':
                     if not args.loop:
                         print('[*] BSSID not specified (--bssid) — scanning for available networks')
                     args.bssid = scanner.prompt_network()
+                    cracked_data = scanner.stored_pass
 
                 if args.bssid:
                     companion = Companion(args.interface, args.write, print_debug=args.verbose)
+                    if cracked_data and args.bssid in cracked_data:
+                        input('[*] Already Cracked Password Found. Do you want to connect with it? [y/n]')
+                        
+
                     if args.bruteforce:
                         companion.smart_bruteforce(args.bssid, args.pin, args.delay)
                     else:
