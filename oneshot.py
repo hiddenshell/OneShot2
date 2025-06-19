@@ -685,10 +685,10 @@ class Companion:
 
     def make_connection(self,bssid, wpa_psk):
         "This function handle automatic wifi connection."
-        time.sleep(2)
         import subprocess
         import time
         import sys
+        time.sleep(2)
 
         # 🛠 Configuration
         SSID = bssid
