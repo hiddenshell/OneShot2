@@ -1283,7 +1283,9 @@ if __name__ == '__main__':
                     if cracked_data:
                         for item in cracked_data:
                             if args.bssid in item:
-                                input('[*] Already Cracked Password Found. Do you want to connect with it? [y/n]')
+                                wpa_psk = item[3]
+
+                                input(f'[*] Already Cracked WPA_PSK ({wpa_psk}) Found. Do you want to connect with it? [y/n]')
                         
 
                     if args.bruteforce:
