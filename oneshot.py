@@ -689,7 +689,7 @@ class Companion:
         import time
         import sys
         time.sleep(2)
-
+        print([bssid,wpa_psk])
         # 🛠 Configuration
         SSID = bssid
         PASSWORD = wpa_psk  # your Wi‑Fi password
